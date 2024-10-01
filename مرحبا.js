@@ -14,18 +14,19 @@ async function getTokens(user_id, guild_id) {
     try {
         const response = await axios.get(url, { headers });
         if (response.status === 200) {
-            return response.data.user.token; // تأكد أن هذه القيمة موجودة في الرد
+            return response.data.user.token; // تحقق من وجود هذه القيمة في الرد
         } else {
+            console.log(`[-] Failed to fetch data. Status code: ${response.status}`);
             return null;
         }
     } catch (error) {
-        console.error("Error fetching tokens:", error);
+        console.error("Error fetching tokens:", error.message);
         return null;
     }
 }
 
 async function main() {
-    rl.question("Enter the user ID: ", async (user_id) => {
+    rl.question("Enter the user ID: ", (user_id) => {
         rl.question("Enter the guild ID: ", async (guild_id) => {
             try {
                 const token = await getTokens(user_id, guild_id);
