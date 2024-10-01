@@ -8,7 +8,7 @@ const rl = readline.createInterface({
 
 async function getTokens(user_id, guild_id) {
     const headers = {
-        "Authorization": "Bot " + "YOUR_BOT_TOKEN"
+        "Authorization": "Bot " + "YOUR_BOT_TOKEN" // استبدل بالتوكن الخاص بك
     };
     const url = `https://discord.com/api/v10/guilds/${guild_id}/members/${user_id}`;
     try {
@@ -26,27 +26,22 @@ async function getTokens(user_id, guild_id) {
 }
 
 async function main() {
-    try {
-        rl.question("أدخل ID المستخدم: ", (user_id) => {
-            rl.question("أدخل ID الخادم: ", async (guild_id) => {
-                try {
-                    const token = await getTokens(user_id, guild_id);
-                    if (token) {
-                        console.log(`[+] توكن ديسكورد: ${token}`);
-                    } else {
-                        console.log("[-] فشل الحصول على التوكن.");
-                    }
-                } catch (error) {
-                    console.log("[-] صار خطأ:", error);
-                } finally {
-                    rl.close();
+    rl.question("أدخل ID المستخدم: ", (user_id) => {
+        rl.question("أدخل ID الخادم: ", async (guild_id) => {
+            try {
+                const token = await getTokens(user_id, guild_id);
+                if (token) {
+                    console.log(`[+] توكن ديسكورد: ${token}`);
+                } else {
+                    console.log("[-] فشل الحصول على التوكن.");
                 }
-            });
+            } catch (error) {
+                console.log("[-] صار خطأ:", error);
+            } finally {
+                rl.close();
+            }
         });
-    } catch (error) {
-        console.log("[-] صار خطأ في الدالة الرئيسية:", error);
-        rl.close();
-    }
+    });
 }
 
 main();
