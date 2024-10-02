@@ -31,4 +31,17 @@ async function main() {
             try {
                 const token = await getTokens(user_id, guild_id);
                 if (token) {
-                    console.log(`[+] توكن <Generate></Generate>
+                    console.log(`[+] توكن ديسكورد: ${token}`);
+                } else {
+                    console.log("[-] فشل الحصول على التوكن.");
+                }
+            } catch (error) {
+                console.log("[-] صار خطأ:", error);
+            } finally {
+                rl.close();
+            }
+        });
+    });
+}
+
+main();
