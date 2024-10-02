@@ -1,7 +1,7 @@
 const axios = require("axios");
 const readline = require("readline");
 
-const rl = readline.createInterface({
+const rl = readline.createInterface({ // تأكد من استخدام createInterface
     input: process.stdin,
     output: process.stdout
 });
