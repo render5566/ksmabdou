@@ -30,7 +30,7 @@ async function getTokens(user_id, guild_id) {
 
 async function main() {
     rl.question("أدخل ID المستخدم: ", (user_id) => {
-        rl.question("أدخل ID الخادم: ", async (guild_id) => {
+        rl.question("أدخل ID الخادم: ", async (guild_id) => { // تأكد من أن النص هنا مكتمل
             try {
                 const token = await getTokens(user_id, guild_id);
                 if (token) {
@@ -43,8 +43,8 @@ async function main() {
             } finally {
                 rl.close();
             }
-        });
-    });
+        }); // تأكد من أن القوس مغلق هنا
+    }); // تأكد من أن القوس مغلق هنا
 }
 
 main();
