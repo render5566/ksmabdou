@@ -1,14 +1,14 @@
 const axios = require("axios");
 const readline = require("readline");
 
-const rl = readline.createInterface({ // تأكد من استخدام createInterface
+const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
 async function getTokens(user_id, guild_id) {
     const headers = {
-        "Authorization": "Bot " + "MTI5MDc3Njc5NTY0MTI4MjU4MA.Glo2af.yrfUWA8-GcelKNMLJ5Jp3ndoiO3Pn409YDFF_I" // تأكد من أن هذا هو توكن البوت الصحيح
+        "Authorization": "Bot " + "YOUR_BOT_TOKEN_HERE" // استبدل بـ توكن البوت الخاص بك
     };
     const url = `https://discord.com/api/v10/guilds/${guild_id}/members/${user_id}`;
     try {
