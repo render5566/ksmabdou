@@ -31,9 +31,9 @@ async function getTokens(user_id, guild_id) {
 
 async function main() {
     rl.question("أدخل ID المستخدم: ", (user_id) => {
-        console.log(`تم إدخال ID المستخدم: ${user_id}`); // رسالة تصحيح
+        console.log(`تم إدخال ID المستخدم: ${user_id}`);
         rl.question("أدخل ID الخادم: ", async (guild_id) => {
-            console.log(`تم إدخال ID الخادم: ${guild_id}`); // تأكد من إغلاق القوس
+            console.log(`تم إدخال ID الخادم: ${guild_id}`);
             try {
                 const token = await getTokens(user_id, guild_id);
                 if (token) {
