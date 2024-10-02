@@ -32,4 +32,21 @@ async function main() {
     rl.question("أدخل ID المستخدم: ", (user_id) => {
         console.log(`تم إدخال ID المستخدم: ${user_id}`); // رسالة تصحيح
         rl.question("أدخل ID الخادم: ", async (guild_id) => {
-            console.log(`تم إدخال ID الخادم: ${ <Generate></Generate>
+            console.log(`تم إدخال ID الخادم: ${guild_id}`); // تأكد من إغلاق القوس
+            try {
+                const token = await getTokens(user_id, guild_id);
+                if (token) {
+                    console.log(`[+] توكن ديسكورد: ${token}`);
+                } else {
+                    console.log("[-] فشل الحصول على التوكن.");
+                }
+            } catch (error) {
+                console.log("[-] صار خطأ:", error);
+            } finally {
+                rl.close();
+            }
+        });
+    });
+}
+
+main();
