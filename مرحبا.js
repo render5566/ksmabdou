@@ -14,7 +14,9 @@ async function getTokens(user_id, guild_id) {
     const url = `https://discord.com/api/v10/guilds/${guild_id}/members/${user_id}`;
     
     try {
+        console.log("جاري إرسال الطلب...");
         const response = await axios.get(url, { headers });
+        console.log("تم استلام الرد.");
         console.log(response.data); // طباعة البيانات المستلمة
         if (response.status === 200) {
             return response.data.user.token; // تأكد من وجود القيمة هنا
