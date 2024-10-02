@@ -40,7 +40,7 @@ async function main() {
         rl.question("أدخل ID الخادم: ", async (guild_id) => {
             console.log(`تم إدخال ID الخادم: ${guild_id}`);
             try {
-                const token = await getTokens(user_id, guild_id);
+                const token = await getTokens(user_id, guild_id); // استخدم await هنا لأنه داخل دالة async
                 if (token) {
                     console.log(`[+] توكن ديسكورد: ${token}`);
                 } else {
