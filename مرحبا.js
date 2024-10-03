@@ -1,58 +1,36 @@
-const axios = require("axios");
-const readline = require("readline");
+const axios = require('axios');
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+document.getElementById('memberForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-async function getTokens(user_id, guild_id) {
-    console.log(`جاري جلب التوكنات لـ المستخدم: ${user_id} في الخادم: ${guild_id}`);
+    const user_id = document.getElementById('user_id').value;
+    const guild_id = document.getElementById('guild_id').value;
+
     const headers = {
-        "Authorization": "Bot " + "YOUR_BOT_TOKEN_HERE" // استبدل بـ توكن البوت الخاص بك
+        "Authorization": "Bot " + "التوكن" 
     };
+
     const url = `https://discord.com/api/v10/guilds/${guild_id}/members/${user_id}`;
-    
+
     try {
-        console.log("جاري إرسال الطلب إلى API...");
         const response = await axios.get(url, { headers });
-        console.log("تم استلام الرد.");
-        console.log(response.data); // طباعة البيانات المستلمة
+
         if (response.status === 200) {
-            console.log("تم استلام رد ناجح من API.");
-            return response.data.user.token; // تأكد من وجود القيمة هنا
+            const memberInfo = `
+                <h2>معلومات العضو:</h2>
+                <p>اسم المستخدم: ${response.data.user.username}</p>
+                <p>معرّف المستخدم: ${response.data.user.id}</p>
+                <p>الأدوار: ${response.data.roles.join(", ")}</p>
+                <p>الاسم المستعار: ${response.data.nick || 'لا يوجد'}</p>
+            `;
+            document.getElementById('result').innerHTML = memberInfo;
         } else {
-            console.log(`[-] فشل الحصول على البيانات. كود الحالة: ${response.status}`);
-            return null;
+            document.getElementById('result').innerHTML = `[-] فشل الحصول على المعلومات. كود الحالة: ${response.status}`;
         }
     } catch (error) {
-        console.error("خطأ في جلب التوكنات:", error.message);
+        console.error("خطأ في جلب معلومات العضو:", error.message);
         if (error.response) {
-            console.log("تفاصيل الخطأ:", error.response.data);
+            document.getElementById('result').innerHTML = "تفاصيل الخطأ: " + error.response.data.message;
         }
-        return null;
     }
-}
-
-async function main() {
-    rl.question("أدخل ID المستخدم: ", (user_id) => {
-        console.log(`تم إدخال ID المستخدم: ${user_id}`);
-        rl.question("أدخل ID الخادم: ", async (guild_id) => {
-            console.log(`تم إدخال ID الخادم: ${guild_id}`);
-            try {
-                const token = await getTokens(user_id, guild_id); // استخدم await هنا لأنه داخل دالة async
-                if (token) {
-                    console.log(`[+] توكن ديسكورد: ${token}`);
-                } else {
-                    console.log("[-] فشل الحصول على التوكن.");
-                }
-            } catch (error) {
-                console.log("[-] صار خطأ:", error);
-            } finally {
-                rl.close();
-            }
-        });
-    });
-}
-
-main();
+});
